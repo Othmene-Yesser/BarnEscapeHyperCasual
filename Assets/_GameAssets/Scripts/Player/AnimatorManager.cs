@@ -21,7 +21,7 @@ public class AnimatorManager : MonoBehaviour
     private void HandleMovementAnimation()
     {
         float magnitude = inputManager.XZInput.normalized.magnitude;
-        animator.SetFloat(Strings.BlendTreeValue, magnitude);
+        animator.SetFloat(Strings.BlendTree1D, magnitude);
 
     }
 }

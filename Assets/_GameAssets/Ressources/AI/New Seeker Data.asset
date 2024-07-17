@@ -15,16 +15,18 @@ MonoBehaviour:
   detectionLayerMask:
     serializedVersion: 2
     m_Bits: 136
-  speed: 5
+  walkSpeed: 1.5
+  runSpeed: 5.5
+  sprintSpeed: 9
   rotationSpeed: 3.5
   angularSpeed: 120
   acceleration: 7
   stoppingDistance: 0.8
-  detectionAngle: 50
-  detectionLength: 7
+  detectionAngle: 46.9
+  detectionLength: 11
   chaseTimeAfterVisionLost: 3
   patrolTime: 5
-  patrolDistance: 6
+  patrolDistance: 22.5
   resetAiIfBuggedTime: 5
   useNavMeshRotation: 1
   Chasing:
@@ -77,6 +79,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxStamina: 40
   actionTime: 2.3
-  sprintAddedAmount: 3.5
   staminaTickRate: 0.05
   restRunPercentage: 0.12

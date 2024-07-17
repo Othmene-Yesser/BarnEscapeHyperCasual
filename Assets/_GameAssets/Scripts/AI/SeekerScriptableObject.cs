@@ -8,7 +8,9 @@ public class SeekerScriptableObject : ScriptableObject
     [Header("Ai Settings")]
     public LayerMask detectionLayerMask;
     [Space]
-    public float speed = 3.0f;
+    public float walkSpeed = 1.5f;
+    public float runSpeed = 5.0f;
+    public float sprintSpeed = 7.0f;
     [Tooltip("This variable is only used when you check off the use nav mesh roation")]
     public float rotationSpeed = 3.5f;
     public float angularSpeed = 120.0f;
@@ -30,7 +32,6 @@ public class SeekerScriptableObject : ScriptableObject
     public float maxStamina = 40.0f;
     [Tooltip("the time when the AI is in Idle state where he is preforming an action resting")]
     public float actionTime = 2.3f;
-    public float sprintAddedAmount = 3.5f;
     [Range(0.01f, 0.1f)]
     public float staminaTickRate = 0.05f;
     [Range(0, 0.9f)]

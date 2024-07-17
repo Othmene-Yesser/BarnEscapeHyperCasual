@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class SeekerAI : MonoBehaviour
 {
-    [SerializeField] FonctionUtulitaire state;
-    FonctionUtulitaire State
+    [SerializeField] States state;
+    private States State
     {
         get
         {
@@ -14,12 +14,41 @@ public class SeekerAI : MonoBehaviour
         }
         set
         {
-            state = value;
+            if (state != value)
+            {
+                switch (value)
+                {
+                    case States.Idle:
+                        animator.SetFloat(Strings.BlendTree1D, 0);
+                        break;
+                    case States.Patrol:
+                        enemyAgent.speed = enemyData.walkSpeed;
+                        animator.SetFloat(Strings.BlendTree1D, 1);
+                        break;
+                    case States.Chase:
+                        enemyAgent.speed = enemyData.runSpeed;
+                        animator.SetFloat(Strings.BlendTree1D, 2);
+                        break;
+                    case States.Searching:
+                        enemyAgent.speed = enemyData.runSpeed;
+                        animator.SetFloat(Strings.BlendTree1D, 2);
+                        break;
+                    case States.Sprint:
+                        enemyAgent.speed = enemyData.sprintSpeed;
+                        animator.SetFloat(Strings.BlendTree1D, 2);
+                        break;
+                }
+                state = value;
+            } 
         }
     }
     
     NavMeshAgent enemyAgent;
-    public SeekerScriptableObject enemyData;
+    Animator animator;
+
+    [SerializeField] SeekerScriptableObject enemyData;
+
+    Transform rayShootPoint;
 
     [SerializeField] Vector3 lastSeenPosition;
 
@@ -36,23 +65,31 @@ public class SeekerAI : MonoBehaviour
 
     bool timerDoneSearch;
 
-    private void OnEnable()
+    private void Awake()
     {
-        State = FonctionUtulitaire.Patrol;
         enemyAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        
+    }
+
+    private void Start()
+    {
+        animator.SetFloat(Strings.BlendTree1D, 1);
+        State = States.Patrol;
 
         rayStatus = new bool[17];
         rays = new Ray[17];
         hits = new RaycastHit[17];
+        rayShootPoint = transform.GetChild(0);
 
-        Debug.Log("Started Utility Function");
-        State = FonctionUtulitaire.Patrol;
+        State = States.Patrol;
         StartCoroutine(Patrol());
         timerDoneSearch = false;
 
         stamina = enemyData.maxStamina;
 
         enemyAgent.stoppingDistance = enemyData.stoppingDistance;
+        enemyAgent.speed = enemyData.walkSpeed;
     }
     private void Update()
     {
@@ -92,7 +129,7 @@ public class SeekerAI : MonoBehaviour
         return new Vector3(randomX + transform.position.x, 0, randomZ + transform.position.z);
     }
 
-    FonctionUtulitaire UtilityFunctionDecision()
+    States UtilityFunctionDecision()
     {
         float distance = DistanceFromLastRegisteredPosition();
         float sprintValue = enemyData.Sprinting.Evaluate(CalculatePercentage(distance, enemyData.detectionLength));
@@ -101,12 +138,12 @@ public class SeekerAI : MonoBehaviour
         if (sprintValue > shootingValue)
         {
             //! Sprint
-            return FonctionUtulitaire.Sprint;
+            return States.Sprint;
         }
         else
         {
             //! Shoot
-            return FonctionUtulitaire.Chase;
+            return States.Chase;
         }
     }
 
@@ -119,87 +156,87 @@ public class SeekerAI : MonoBehaviour
     {
         int i = 0;
 
-        rays[i] = new Ray(transform.position, transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.red);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 1 / 2), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 1 / 2), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 3 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 3 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 1 / 4), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 1 / 4), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 1 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 1 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 3 / 4), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 3 / 4), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 5 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 5 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (enemyData.detectionAngle * 7 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (enemyData.detectionAngle * 7 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, -(enemyData.detectionAngle * 1 / 2), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, -(enemyData.detectionAngle * 1 / 2), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, -(enemyData.detectionAngle * 3 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, -(enemyData.detectionAngle * 3 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 1 / 4), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 1 / 4), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 1 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 1 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 3 / 4), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 3 / 4), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, -(enemyData.detectionAngle * 5 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, -(enemyData.detectionAngle * 5 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 7 / 8), 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, (-enemyData.detectionAngle * 7 / 8), 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.blue);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, enemyData.detectionAngle, 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, enemyData.detectionAngle, 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.red);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
         i++;
 
-        rays[i] = new Ray(transform.position, Quaternion.Euler(0, -enemyData.detectionAngle, 0) * transform.forward);
+        rays[i] = new Ray(rayShootPoint.position, Quaternion.Euler(0, -enemyData.detectionAngle, 0) * rayShootPoint.forward);
         Debug.DrawRay(rays[i].origin, rays[i].direction * enemyData.detectionLength, Color.red);
         rayStatus[i] = Physics.Raycast(rays[i], out hits[i], enemyData.detectionLength, enemyData.detectionLayerMask);
 
@@ -217,9 +254,9 @@ public class SeekerAI : MonoBehaviour
     }
     void ResetValues()
     {
-        enemyAgent.speed = enemyData.speed;
+        enemyAgent.speed = enemyData.walkSpeed;
     }
-    public enum FonctionUtulitaire
+    public enum States
     {
         Idle,
         Patrol,
@@ -234,26 +271,24 @@ public class SeekerAI : MonoBehaviour
     {
         enemyAgent.SetDestination(transform.position);
         yield return new WaitForSeconds(time);
-        State = FonctionUtulitaire.Patrol;
+        State = States.Patrol;
         StartCoroutine(Patrol());
     }
     IEnumerator Sprint()
     {
-        enemyAgent.speed = enemyData.speed + enemyData.sprintAddedAmount;
-        while (playerInVision && State == FonctionUtulitaire.Sprint)
+        while (playerInVision && State == States.Sprint)
         {
             //! Sprint
             stamina -= enemyData.staminaTickRate;
             yield return null;
         }
-        ResetValues();
     }
 
     IEnumerator Patrol()
     {
         float timer = enemyData.patrolTime;
         enemyAgent.stoppingDistance = enemyData.stoppingDistance;
-        while (State == FonctionUtulitaire.Patrol)
+        while (State == States.Patrol)
         {
             if (timer >= enemyData.patrolTime || DistanceFromLastRegisteredPosition(true) <= enemyData.stoppingDistance)
             {
@@ -266,7 +301,7 @@ public class SeekerAI : MonoBehaviour
 
             if (playerInVision)
             {
-                State = FonctionUtulitaire.Chase;
+                State = States.Chase;
                 StartCoroutine(Chase());
                 break;
             }
@@ -276,24 +311,24 @@ public class SeekerAI : MonoBehaviour
     IEnumerator Chase()
     {
         enemyAgent.stoppingDistance = enemyData.stoppingDistance * 3;
-        while (State == FonctionUtulitaire.Chase || State == FonctionUtulitaire.Sprint)
+        while (State == States.Chase || State == States.Sprint)
         {
             enemyAgent.SetDestination(lastSeenPosition);
 
             //! Do Action
-            FonctionUtulitaire decidedState = UtilityFunctionDecision();
+            States decidedState = UtilityFunctionDecision();
             //! Only change the state when there is a different one 
             switch (decidedState)
             {
-                case FonctionUtulitaire.Sprint:
+                case States.Sprint:
                     //! If he is sprinting then he won't need to sprint
-                    if (State == FonctionUtulitaire.Sprint)
+                    if (State == States.Sprint)
                         break;
-                    State = FonctionUtulitaire.Sprint;
+                    State = States.Sprint;
                     StartCoroutine(Sprint());
                     break;
-                case FonctionUtulitaire.Chase:
-                    State = FonctionUtulitaire.Chase;
+                case States.Chase:
+                    State = States.Chase;
                     break;
                 default:
                     Debug.LogError("What ??");
@@ -304,7 +339,7 @@ public class SeekerAI : MonoBehaviour
             bool idle = CheckIfNeededToIdle();
             if (idle)
             {
-                State = FonctionUtulitaire.Idle;
+                State = States.Idle;
                 StartCoroutine(IdleForXAmountOfSeconds(enemyData.actionTime));
             }
 
@@ -312,7 +347,7 @@ public class SeekerAI : MonoBehaviour
 
             if (!CanSeePlayer())
             {
-                State = FonctionUtulitaire.Searching;
+                State = States.Searching;
                 StartCoroutine(Search());
             }
         }
@@ -324,18 +359,18 @@ public class SeekerAI : MonoBehaviour
         yield return null;
         IEnumerator timer = SearchTimer();
         StartCoroutine(timer);
-        while (State == FonctionUtulitaire.Searching)
+        while (State == States.Searching)
         {
             yield return null;
             if (DistanceFromLastRegisteredPosition() <= enemyData.stoppingDistance || timerDoneSearch)
             {
-                State = FonctionUtulitaire.Patrol;
+                State = States.Patrol;
                 StartCoroutine(Patrol());
                 break;
             }
             else if (playerInVision)
             {
-                State = FonctionUtulitaire.Chase;
+                State = States.Chase;
                 StartCoroutine(Chase());
                 break;
             }
@@ -346,7 +381,7 @@ public class SeekerAI : MonoBehaviour
     IEnumerator SearchTimer()
     {
         yield return new WaitForSeconds(enemyData.patrolTime);
-        if (State == FonctionUtulitaire.Searching)
+        if (State == States.Searching)
         {
             timerDoneSearch = true;
         }

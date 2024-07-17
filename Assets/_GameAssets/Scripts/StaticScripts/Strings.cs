@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class Strings
 {
-    public static string BlendTreeValue = "Blend";
+    public static string BlendTree1D = "Blend";
     public static string PlayerTag = "Player";
 }
