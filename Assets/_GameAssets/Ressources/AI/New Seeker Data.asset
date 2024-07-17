@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionLayerMask:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 392
   walkSpeed: 1.5
   runSpeed: 5.5
   sprintSpeed: 9

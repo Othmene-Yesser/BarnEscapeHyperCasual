@@ -243,7 +243,8 @@ public class SeekerAI : MonoBehaviour
         i = 0;
         while (i < rays.Length)
         {
-            if (rayStatus[i] && hits[i].collider.CompareTag(Strings.PlayerTag))
+            Collider other = hits[i].collider;
+            if ( rayStatus[i] && (other.CompareTag(Strings.PlayerTag) || other.CompareTag(Strings.AllyTag)) )
             {
                 lastSeenPosition = hits[i].point;
                 return true;
@@ -251,10 +252,6 @@ public class SeekerAI : MonoBehaviour
             i++;
         }
         return false;
-    }
-    void ResetValues()
-    {
-        enemyAgent.speed = enemyData.walkSpeed;
     }
     public enum States
     {
