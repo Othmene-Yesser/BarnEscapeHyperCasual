@@ -16,11 +16,12 @@ public class AllyAI : MonoBehaviour
 
     CapsuleCollider sphereCollider;
 
-    public bool hasBeenCaptured = false;
+    
     [SerializeField] float stoppingDistance = 3f;
     [SerializeField] float speed = 5.5f;
     [SerializeField] float distance;
-    public bool alive;
+    public bool alive = true;
+    public bool hasBeenCaptured;
 
     private void Awake()
     {
@@ -58,17 +59,16 @@ public class AllyAI : MonoBehaviour
 
     private void Die()
     {
-        Destroy(this.gameObject);
+        this.gameManager.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Strings.SeekerTag) && hasBeenCaptured == true)
+        if (other.CompareTag(Strings.SeekerTag) && hasBeenCaptured == true && alive)
         {
             //! Player death animation
             animator.Play("Death");
             alive = false;
-            hasBeenCaptured = false;
             sphereCollider.enabled = false;
             allyAgent.SetDestination(transform.position);
             Debug.Log("Died");

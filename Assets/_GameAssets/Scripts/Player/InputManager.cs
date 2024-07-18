@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public Vector2 XZInput;
+    public bool immobile = false;
 
     FloatingJoystick mobileInput;
 
@@ -20,6 +21,11 @@ public class InputManager : MonoBehaviour
 
     private void HandleLocomotionInput()
     {
+        if (immobile)
+        {
+            XZInput = Vector2.zero;
+            return;
+        }
         XZInput.x = mobileInput.Vertical;
         XZInput.y = mobileInput.Horizontal;
     }

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,15 +12,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] float percentageToLose = 0.5f;
     [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] SeekerAI[] seekers;
-    [SerializeField] AllyAI[] allies;
-    [SerializeField] float levelTime = 120f;
+    public AllyAI[] allies;
+    public float levelTime = 120f;
 
     FloatingJoystick mobileInput;
+    InputManager inputManager;
 
     Slider slider;
     BoxCollider winZone;
 
-    float gameTime;
+    [HideInInspector] public float gameTime;
 
     private int coins;
 
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
         slider = FindObjectOfType<Slider>();
         winZone = GetComponent<BoxCollider>();
         mobileInput = FindObjectOfType<FloatingJoystick>();
+        inputManager = FindObjectOfType<InputManager>();
     }
 
     private void Start()
@@ -59,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         int i = 0;
         int arrayLength = allies.Length;
-        while ((allies[i] == null) ||i < arrayLength && allies[i].hasBeenCaptured)
+        while ((i < arrayLength && allies[i].hasBeenCaptured))
         {
             i++;
         }
@@ -90,7 +94,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Lost");
         Lose();
     }
-    
+
     private void StopAllSeeker()
     {
         for (int i = 0; i < seekers.Length; i++)
@@ -108,7 +112,7 @@ public class GameManager : MonoBehaviour
                 j--;
             }
         }
-        if ((j / allies.Length ) < percentageToLose)
+        if ((j / allies.Length) < percentageToLose)
         {
             Debug.Log("Lost By Allies deaths");
             StopCoroutine(gameTimeTicker);
@@ -117,7 +121,8 @@ public class GameManager : MonoBehaviour
     }
     private void Win()
     {
-        mobileInput.enabled = false;
+        inputManager.immobile = true;
+        mobileInput.gameObject.SetActive(false);
         StopAllSeeker();
         winZone.enabled = false;
         gamePanel.SetActive(true);
@@ -125,9 +130,10 @@ public class GameManager : MonoBehaviour
     }
     private void Lose()
     {
-        mobileInput.enabled = false;
+        inputManager.immobile = true;
+        mobileInput.gameObject.SetActive(false);
         StopAllSeeker();
-        winZone.enabled= false;
+        winZone.enabled = false;
         gamePanel.SetActive(true);
         gamePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Loser";
     }
