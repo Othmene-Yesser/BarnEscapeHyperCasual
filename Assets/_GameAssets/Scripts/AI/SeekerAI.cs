@@ -56,6 +56,14 @@ public class SeekerAI : MonoBehaviour
 
     [SerializeField] float stamina;
 
+    private enum States
+    {
+        Idle,
+        Patrol,
+        Chase,
+        Searching,
+        Sprint,
+    }
 
     //! Player Detection Variables
     bool[] rayStatus;
@@ -94,6 +102,15 @@ public class SeekerAI : MonoBehaviour
     private void Update()
     {
         playerInVision = CanSeePlayer();
+    }
+
+    #region Methods
+
+    public void Idle()
+    {
+        StopAllCoroutines();
+        enemyAgent.SetDestination(transform.position);
+        animator.SetFloat(Strings.BlendTree1D, 0);
     }
 
     float DistanceFromLastRegisteredPosition(bool patrol = false)
@@ -253,14 +270,8 @@ public class SeekerAI : MonoBehaviour
         }
         return false;
     }
-    public enum States
-    {
-        Idle,
-        Patrol,
-        Chase,
-        Searching,
-        Sprint,
-    }
+
+    #endregion
 
     #region IEnumerators
 

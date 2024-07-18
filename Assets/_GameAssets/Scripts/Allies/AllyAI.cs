@@ -10,6 +10,7 @@ public class AllyAI : MonoBehaviour
     Animator animator;
 
     NavMeshAgent allyAgent;
+    GameManager gameManager;
 
     Transform player;
 
@@ -22,7 +23,7 @@ public class AllyAI : MonoBehaviour
 
     private void Awake()
     {
-        //gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager>();
         allyAgent = GetComponent<NavMeshAgent>();
         sphereCollider = transform.GetChild(0).GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
@@ -47,7 +48,7 @@ public class AllyAI : MonoBehaviour
             }
             else
             {
-                float clamped = Mathf.Clamp01(distance - 1.8f);
+                float clamped = Mathf.Clamp01(distance - 2f);
                 animator.SetFloat(Strings.BlendTree1D, clamped);
             }
         }
@@ -66,6 +67,7 @@ public class AllyAI : MonoBehaviour
             player = other.transform;
             hasBeenCaptured = true;
             sphereCollider.enabled = hasBeenCaptured;
+            gameManager.CheckIfCollectedAllALlies();
         }
         
     }

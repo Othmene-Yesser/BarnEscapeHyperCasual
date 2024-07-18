@@ -16,13 +16,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 392
   walkSpeed: 1.5
-  runSpeed: 5.5
-  sprintSpeed: 9
+  runSpeed: 4.5
+  sprintSpeed: 7.5
   rotationSpeed: 3.5
   angularSpeed: 120
   acceleration: 7
   stoppingDistance: 0.8
-  detectionAngle: 46.9
+  detectionAngle: 70
   detectionLength: 11
   chaseTimeAfterVisionLost: 3
   patrolTime: 5
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxStamina: 40
+  maxStamina: 35
   actionTime: 2.3
-  staminaTickRate: 0.05
+  staminaTickRate: 0.07
   restRunPercentage: 0.12
