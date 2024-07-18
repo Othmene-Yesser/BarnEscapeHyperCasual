@@ -8,4 +8,5 @@ public static class Strings
     public static string PlayerTag = "Player";
     public static string SeekerTag = "Seeker";
     public static string AllyTag = "Ally";
+    public static string CoinTag = "Coin";
 }

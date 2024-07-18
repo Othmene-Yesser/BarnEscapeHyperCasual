@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ally
   - Seeker
+  - Coin
   layers:
   - Default
   - TransparentFX

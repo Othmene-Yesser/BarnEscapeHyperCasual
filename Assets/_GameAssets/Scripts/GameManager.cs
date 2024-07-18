@@ -7,14 +7,33 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject gamePanel;
+    [SerializeField] float percentageToLose = 0.5f;
+    [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] SeekerAI[] seekers;
     [SerializeField] AllyAI[] allies;
     [SerializeField] float levelTime = 120f;
+
+    FloatingJoystick mobileInput;
 
     Slider slider;
     BoxCollider winZone;
 
     float gameTime;
+
+    private int coins;
+
+    public int Coins
+    {
+        get
+        {
+            return coins;
+        }
+        set
+        {
+            coins = value;
+            coinText.text = coins.ToString();
+        }
+    }
 
     GameObject door;
 
@@ -25,6 +44,7 @@ public class GameManager : MonoBehaviour
         door = FindObjectOfType<Door>().gameObject;
         slider = FindObjectOfType<Slider>();
         winZone = GetComponent<BoxCollider>();
+        mobileInput = FindObjectOfType<FloatingJoystick>();
     }
 
     private void Start()
@@ -32,13 +52,14 @@ public class GameManager : MonoBehaviour
         gameTime = levelTime;
         gameTimeTicker = TimeTicker();
         StartCoroutine(gameTimeTicker);
+        coinText.text = "0";
     }
 
     public void CheckIfCollectedAllALlies()
     {
         int i = 0;
         int arrayLength = allies.Length;
-        while (i < arrayLength && allies[i].hasBeenCaptured)
+        while ((allies[i] == null) ||i < arrayLength && allies[i].hasBeenCaptured)
         {
             i++;
         }
@@ -53,7 +74,6 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag(Strings.PlayerTag))
         {
             Debug.Log("Win");
-            StopAllSeeker();
             StopCoroutine(gameTimeTicker);
             Win();
         }
@@ -68,10 +88,9 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         Debug.Log("Lost");
-        StopAllSeeker();
         Lose();
     }
-
+    
     private void StopAllSeeker()
     {
         for (int i = 0; i < seekers.Length; i++)
@@ -79,15 +98,35 @@ public class GameManager : MonoBehaviour
             seekers[i].Idle();
         }
     }
-
+    public void CheckIfLostManyAllies()
+    {
+        float j = allies.Length;
+        for (int i = 0; i < allies.Length; i++)
+        {
+            if (allies[i].alive == false)
+            {
+                j--;
+            }
+        }
+        if ((j / allies.Length ) < percentageToLose)
+        {
+            Debug.Log("Lost By Allies deaths");
+            StopCoroutine(gameTimeTicker);
+            Lose();
+        }
+    }
     private void Win()
     {
+        mobileInput.enabled = false;
+        StopAllSeeker();
         winZone.enabled = false;
         gamePanel.SetActive(true);
         gamePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Winner";
     }
     private void Lose()
     {
+        mobileInput.enabled = false;
+        StopAllSeeker();
         winZone.enabled= false;
         gamePanel.SetActive(true);
         gamePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Loser";

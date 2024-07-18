@@ -8,12 +8,14 @@ public class PlayerManager : MonoBehaviour
     InputManager inputManager;
     LocomotionManager locomotionManager;
     AnimatorManager animatorManager;
+    GameManager gameManager;
 
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
         locomotionManager = GetComponent<LocomotionManager>();
         animatorManager = GetComponent<AnimatorManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -27,5 +29,16 @@ public class PlayerManager : MonoBehaviour
         locomotionManager.LocomotionHandler();
         //! Animate player
         animatorManager.AnimatorHandler();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(Strings.CoinTag))
+        {
+            //TODO Add SFX for coin
+            //! collect Coin
+            gameManager.Coins++;
+            Destroy(other.gameObject);
+        }
     }
 }

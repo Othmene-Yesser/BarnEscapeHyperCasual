@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(SphereCollider))]
 public class AllyAI : MonoBehaviour
 {
-    //GameManager gameManager;
     Animator animator;
 
     NavMeshAgent allyAgent;
@@ -20,6 +20,7 @@ public class AllyAI : MonoBehaviour
     [SerializeField] float stoppingDistance = 3f;
     [SerializeField] float speed = 5.5f;
     [SerializeField] float distance;
+    public bool alive;
 
     private void Awake()
     {
@@ -34,11 +35,12 @@ public class AllyAI : MonoBehaviour
         allyAgent.stoppingDistance = stoppingDistance;
         allyAgent.speed = speed;
         sphereCollider.enabled = hasBeenCaptured;
+        alive = true;
     }
 
     private void FixedUpdate()
     {
-        if (hasBeenCaptured)
+        if (hasBeenCaptured && alive)
         {
             allyAgent.SetDestination(player.position);
             distance = Vector3.Distance(transform.position, player.position);
@@ -54,16 +56,29 @@ public class AllyAI : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Strings.SeekerTag) && hasBeenCaptured == true)
         {
             //! Player death animation
-            Destroy(this.gameObject);
+            animator.Play("Death");
+            alive = false;
+            hasBeenCaptured = false;
+            sphereCollider.enabled = false;
+            allyAgent.SetDestination(transform.position);
+            Debug.Log("Died");
+            Invoke(nameof(Die), 3f);
+            gameManager.CheckIfLostManyAllies();
         }
 
         if (other.CompareTag(Strings.PlayerTag) && hasBeenCaptured == false)
         {
+            //TODO play an effect that says it has been saved
             player = other.transform;
             hasBeenCaptured = true;
             sphereCollider.enabled = hasBeenCaptured;
