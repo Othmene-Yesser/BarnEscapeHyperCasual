@@ -38,13 +38,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    GameObject door;
+    Door door;
 
     IEnumerator gameTimeTicker;
 
     private void Awake()
     {
-        door = FindObjectOfType<Door>().gameObject;
+        door = FindObjectOfType<Door>();
         slider = FindObjectOfType<Slider>();
         winZone = GetComponent<BoxCollider>();
         mobileInput = FindObjectOfType<FloatingJoystick>();
@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour
         }
         if (i == arrayLength)
         {
-            //! Open Door
-            door.SetActive(false);
+            //TODO Add Door Animation
+            door.OpenDoor();
         }
     }
     private void OnTriggerEnter(Collider other)
