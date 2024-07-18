@@ -23,7 +23,7 @@ MonoBehaviour:
   acceleration: 7
   stoppingDistance: 0.8
   detectionAngle: 70
-  detectionLength: 11
+  detectionLength: 7
   chaseTimeAfterVisionLost: 3
   patrolTime: 5
   patrolDistance: 22.5
@@ -79,5 +79,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxStamina: 35
   actionTime: 2.3
-  staminaTickRate: 0.07
+  staminaTickRate: 0.08
   restRunPercentage: 0.12

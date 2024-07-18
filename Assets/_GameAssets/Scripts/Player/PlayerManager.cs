@@ -41,4 +41,9 @@ public class PlayerManager : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+
+    private void CheckIfSeekerCoughtyou()
+    {
+
+    }
 }

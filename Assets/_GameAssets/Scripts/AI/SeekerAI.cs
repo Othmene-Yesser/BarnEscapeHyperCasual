@@ -322,6 +322,10 @@ public class SeekerAI : MonoBehaviour
         while (State == States.Chase || State == States.Sprint)
         {
             enemyAgent.SetDestination(lastSeenPosition);
+            if (Vector3.Distance(transform.position, enemyAgent.destination) <= enemyAgent.stoppingDistance- 0.8f)
+            {
+                animator.SetFloat(Strings.BlendTree1D, 0);  
+            }
 
             //! Do Action
             States decidedState = UtilityFunctionDecision();

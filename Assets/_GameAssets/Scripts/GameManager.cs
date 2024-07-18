@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
     {
         if (other.CompareTag(Strings.PlayerTag))
         {
-            Debug.Log("Win");
             StopCoroutine(gameTimeTicker);
             Win();
         }
