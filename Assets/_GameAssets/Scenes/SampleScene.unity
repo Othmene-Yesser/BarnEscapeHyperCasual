@@ -1172,7 +1172,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
-  m_LocalPosition: {x: -1.96, y: 13.67, z: 15.07}
+  m_LocalPosition: {x: -1.96, y: 23.44, z: 24.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 3
-  ZOffset: -11
+  ZOffset: -20
 --- !u!224 &1033741077 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
@@ -2963,7 +2963,7 @@ MonoBehaviour:
   - {fileID: 857344753}
   - {fileID: 1649522062}
   - {fileID: 1366021694}
-  levelTime: 30
+  levelTime: 15
   gameTime: 0
 --- !u!65 &1716105980
 BoxCollider:
