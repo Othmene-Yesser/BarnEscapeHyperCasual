@@ -12,12 +12,14 @@ public class LocomotionManager : MonoBehaviour
     Transform cameraObject;
 
     InputManager inputManager;
+    PlayerBuffManager buffsManager;
 
     private void Awake()
     {
         inputManager= GetComponent<InputManager>();
         cameraObject = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
+        buffsManager = FindObjectOfType<PlayerBuffManager>();
     }
 
     public void LocomotionHandler()
@@ -28,13 +30,23 @@ public class LocomotionManager : MonoBehaviour
     private void HandleMovement()
     {
         Vector3 moveDirection;
+        Transform auxTransform = cameraObject;
+
+        auxTransform.rotation = new Quaternion(0,0,0,0);
+
         moveDirection = cameraObject.forward * inputManager.XZInput.x;
         moveDirection += cameraObject.right * inputManager.XZInput.y;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        moveDirection *= playerData.speed;
-
+        if (buffsManager.SpeedBuff)
+        {
+            moveDirection *= (playerData.speed + playerData.speedModifier);
+        }
+        else
+        {
+            moveDirection *= playerData.speed;
+        }
         rb.velocity = moveDirection;
     }
     private void HandleRotation()

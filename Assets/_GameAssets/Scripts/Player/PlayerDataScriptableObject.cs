@@ -6,5 +6,6 @@ using UnityEngine;
 public class PlayerDataScriptableObject : ScriptableObject
 {
     public float speed;
+    public float speedModifier;
     public float rotationSpeed;
 }

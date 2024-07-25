@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(SphereCollider))]
+[RequireComponent(typeof(NavMeshAgent), typeof(SphereCollider), typeof(ParticleSystem))]
 public class AllyAI : MonoBehaviour
 {
     Animator animator;
-
     NavMeshAgent allyAgent;
     GameManager gameManager;
-
     Transform player;
-
     CapsuleCollider sphereCollider;
+    ParticleSystem collectedVFX;
 
     
     [SerializeField] float stoppingDistance = 3f;
@@ -29,6 +26,7 @@ public class AllyAI : MonoBehaviour
         allyAgent = GetComponent<NavMeshAgent>();
         sphereCollider = transform.GetChild(0).GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
+        collectedVFX = GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -79,6 +77,8 @@ public class AllyAI : MonoBehaviour
         if (other.CompareTag(Strings.PlayerTag) && hasBeenCaptured == false)
         {
             //TODO play an effect that says it has been saved
+            Debug.Log("Captured " + this.name);
+            collectedVFX.Play();
             player = other.transform;
             hasBeenCaptured = true;
             sphereCollider.enabled = hasBeenCaptured;

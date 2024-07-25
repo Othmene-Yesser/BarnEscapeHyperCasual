@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     FloatingJoystick mobileInput;
     InputManager inputManager;
+    PlayerBuffManager buffsManager;
 
     Slider slider;
     BoxCollider winZone;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         winZone = GetComponent<BoxCollider>();
         mobileInput = FindObjectOfType<FloatingJoystick>();
         inputManager = FindObjectOfType<InputManager>();
+        buffsManager = FindObjectOfType<PlayerBuffManager>();
     }
 
     private void Start()
@@ -86,6 +88,11 @@ public class GameManager : MonoBehaviour
     {
         while (gameTime > 0f)
         {
+            if (buffsManager.StopTimerBuff)
+            {
+                yield return null;
+                continue;
+            }
             gameTime -= Time.deltaTime;
             slider.value = gameTime / levelTime;
             yield return null;

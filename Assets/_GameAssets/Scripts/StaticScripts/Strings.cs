@@ -9,4 +9,7 @@ public static class Strings
     public static string SeekerTag = "Seeker";
     public static string AllyTag = "Ally";
     public static string CoinTag = "Coin";
+    public static string ZaWarudoBuff = "TimerStop";
+    public static string SpeedBuff = "SpeedBuff";
+    public static string Invisibility = "Invisibility";
 }

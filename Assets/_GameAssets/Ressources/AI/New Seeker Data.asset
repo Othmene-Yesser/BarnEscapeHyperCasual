@@ -21,7 +21,7 @@ MonoBehaviour:
   rotationSpeed: 3.5
   angularSpeed: 120
   acceleration: 7
-  stoppingDistance: 0.8
+  stoppingDistance: 0.6
   detectionAngle: 70
   detectionLength: 7
   chaseTimeAfterVisionLost: 3

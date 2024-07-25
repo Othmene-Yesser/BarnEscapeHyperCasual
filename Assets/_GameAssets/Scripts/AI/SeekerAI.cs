@@ -45,6 +45,7 @@ public class SeekerAI : MonoBehaviour
     
     NavMeshAgent enemyAgent;
     Animator animator;
+    PlayerBuffManager playerbuffs;
 
     [SerializeField] SeekerScriptableObject enemyData;
 
@@ -77,7 +78,7 @@ public class SeekerAI : MonoBehaviour
     {
         enemyAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        
+        playerbuffs = FindObjectOfType<PlayerBuffManager>();
     }
 
     private void Start()
@@ -260,8 +261,7 @@ public class SeekerAI : MonoBehaviour
         i = 0;
         while (i < rays.Length)
         {
-            Collider other = hits[i].collider;
-            if ( rayStatus[i] && (other.CompareTag(Strings.PlayerTag) || other.CompareTag(Strings.AllyTag)) )
+            if (CheckIfViableForDetection(i))
             {
                 lastSeenPosition = hits[i].point;
                 return true;
@@ -269,6 +269,23 @@ public class SeekerAI : MonoBehaviour
             i++;
         }
         return false;
+    }
+
+    private bool CheckIfViableForDetection(int i)
+    {
+        Collider other = hits[i].collider;
+        if (rayStatus[i] && (other.CompareTag(Strings.PlayerTag) || other.CompareTag(Strings.AllyTag)))
+        {
+            if (playerbuffs.Invisible)
+            {
+                return false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     #endregion
@@ -322,9 +339,13 @@ public class SeekerAI : MonoBehaviour
         while (State == States.Chase || State == States.Sprint)
         {
             enemyAgent.SetDestination(lastSeenPosition);
-            if (Vector3.Distance(transform.position, enemyAgent.destination) <= enemyAgent.stoppingDistance- 0.8f)
+            if (Vector3.Distance(transform.position, enemyAgent.destination) <= enemyAgent.stoppingDistance - 0.4f)
             {
-                animator.SetFloat(Strings.BlendTree1D, 0);  
+                animator.SetFloat(Strings.BlendTree1D, 0);
+            }
+            else
+            {
+                animator.SetFloat(Strings.BlendTree1D, 2);
             }
 
             //! Do Action

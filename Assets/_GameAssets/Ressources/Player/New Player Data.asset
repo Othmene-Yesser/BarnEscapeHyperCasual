@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: New Player Data
   m_EditorClassIdentifier: 
   speed: 8
+  speedModifier: 3
   rotationSpeed: 15
