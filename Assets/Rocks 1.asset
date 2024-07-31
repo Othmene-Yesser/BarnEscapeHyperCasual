@@ -18,7 +18,7 @@ MonoBehaviour:
     Items:
     - Name: rock_010
       GameObjectVariants:
-      - {fileID: 919132149155446097, guid: 663fc4bad04d6e84f9c0dd295507139c, type: 3}
+      - {fileID: 7405846476849542632, guid: c6308cb7062fac34e8e50600086b12a1, type: 3}
       Rotation:
         Constant: {x: 0, y: 0, z: 0}
         Min: {x: 0, y: 0, z: 0}

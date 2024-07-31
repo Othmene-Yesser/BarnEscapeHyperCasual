@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(InputManager), typeof( LocomotionManager), typeof(AnimatorManager))]
+[RequireComponent(typeof(InputManager), typeof(LocomotionManager), typeof(AnimatorManager))]
 public class PlayerManager : MonoBehaviour
 {
     InputManager inputManager;
     LocomotionManager locomotionManager;
-    AnimatorManager animatorManager;
+    [HideInInspector] public AnimatorManager animatorManager;
     GameManager gameManager;
+
+    public bool isAlive;
 
     private void Awake()
     {
@@ -17,9 +19,18 @@ public class PlayerManager : MonoBehaviour
         animatorManager = GetComponent<AnimatorManager>();
         gameManager = FindObjectOfType<GameManager>();
     }
+    private void Start()
+    {
+        isAlive = true;
+    }
 
     private void Update()
     {
+        if (!isAlive)
+        {
+            inputManager.XZInput = Vector2.zero;
+            return;
+        }
         inputManager.InputHandler();
     }
 
@@ -40,10 +51,5 @@ public class PlayerManager : MonoBehaviour
             gameManager.Coins++;
             Destroy(other.gameObject);
         }
-    }
-
-    private void CheckIfSeekerCoughtyou()
-    {
-
     }
 }

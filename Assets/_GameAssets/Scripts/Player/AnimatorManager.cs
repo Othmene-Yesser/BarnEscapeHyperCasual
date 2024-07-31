@@ -22,6 +22,11 @@ public class AnimatorManager : MonoBehaviour
     {
         float magnitude = inputManager.XZInput.normalized.magnitude;
         animator.SetFloat(Strings.BlendTree1D, magnitude);
-
+    }
+    public void PlayTargetAnimation(string animation = "")
+    {
+        if (animation == "")
+            return;
+        animator.Play(animation);
     }
 }

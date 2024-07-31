@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: rock
   m_EditorClassIdentifier: 
   Categories:
-  - {fileID: 11400000, guid: f48638794f48f1243aafc3a37816e387, type: 2}
   - {fileID: 11400000, guid: 1e9d9c7bc8e994042a437b620dc84e98, type: 2}
+  - {fileID: 11400000, guid: f48638794f48f1243aafc3a37816e387, type: 2}

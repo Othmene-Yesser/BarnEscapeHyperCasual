@@ -46,6 +46,8 @@ public class SeekerAI : MonoBehaviour
     NavMeshAgent enemyAgent;
     Animator animator;
     PlayerBuffManager playerbuffs;
+    PlayerManager playerManager;
+    GameManager gameManager;
 
     [SerializeField] SeekerScriptableObject enemyData;
 
@@ -79,6 +81,8 @@ public class SeekerAI : MonoBehaviour
         enemyAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         playerbuffs = FindObjectOfType<PlayerBuffManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Start()
@@ -288,6 +292,16 @@ public class SeekerAI : MonoBehaviour
         }
     }
 
+    private void KillPlayer()
+    {
+        Debug.Log("Killed Player");
+        playerManager.isAlive = false;
+        playerManager.animatorManager.PlayTargetAnimation("Death");
+        StopCoroutine(gameManager.gameTimeTicker);
+        gameManager.Lose();
+    }
+
+
     #endregion
 
     #region IEnumerators
@@ -342,6 +356,16 @@ public class SeekerAI : MonoBehaviour
             if (Vector3.Distance(transform.position, enemyAgent.destination) <= enemyAgent.stoppingDistance - 0.4f)
             {
                 animator.SetFloat(Strings.BlendTree1D, 0);
+                //! Check if we go close to the player the we kill him
+                Collider[] collidersNear = Physics.OverlapSphere(transform.position, enemyAgent.stoppingDistance);
+                foreach (Collider collider in collidersNear)
+                {
+                    if (collider.CompareTag(Strings.PlayerTag) && playerManager.isAlive)
+                    {
+
+                        KillPlayer();
+                    }
+                }
             }
             else
             {

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6389af15a02cb034585ce8926fcf0d80, type: 3}
   m_Name: New Player Data
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 4.5
   speedModifier: 3
   rotationSpeed: 15
