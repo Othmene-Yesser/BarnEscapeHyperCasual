@@ -70,6 +70,8 @@ public class AllyAI : MonoBehaviour
             sphereCollider.enabled = false;
             allyAgent.SetDestination(transform.position);
             Debug.Log("Died");
+            SeekerAI seeker = other.GetComponent<SeekerAI>();
+            seeker.StartCoroutine(seeker.IdleForXAmountOfSeconds(1.5f));
             Invoke(nameof(Die), 3f);
             gameManager.CheckIfLostManyAllies();
         }

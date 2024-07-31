@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class SeekerAI : MonoBehaviour
 {
     [SerializeField] States state;
@@ -79,7 +79,7 @@ public class SeekerAI : MonoBehaviour
     private void Awake()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(1).GetComponent<Animator>();
         playerbuffs = FindObjectOfType<PlayerBuffManager>();
         playerManager = FindObjectOfType<PlayerManager>();
         gameManager = FindObjectOfType<GameManager>();
@@ -306,8 +306,9 @@ public class SeekerAI : MonoBehaviour
 
     #region IEnumerators
 
-    IEnumerator IdleForXAmountOfSeconds(float time = 0.1f)
+    public IEnumerator IdleForXAmountOfSeconds(float time = 0.1f)
     {
+        State = States.Idle;
         enemyAgent.SetDestination(transform.position);
         yield return new WaitForSeconds(time);
         State = States.Patrol;
@@ -362,7 +363,6 @@ public class SeekerAI : MonoBehaviour
                 {
                     if (collider.CompareTag(Strings.PlayerTag) && playerManager.isAlive)
                     {
-
                         KillPlayer();
                     }
                 }
@@ -396,7 +396,7 @@ public class SeekerAI : MonoBehaviour
             bool idle = CheckIfNeededToIdle();
             if (idle)
             {
-                State = States.Idle;
+                
                 StartCoroutine(IdleForXAmountOfSeconds(enemyData.actionTime));
             }
 
