@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class AnimatorManager : MonoBehaviour
 {
     InputManager inputManager;
@@ -11,7 +10,7 @@ public class AnimatorManager : MonoBehaviour
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     public void AnimatorHandler()

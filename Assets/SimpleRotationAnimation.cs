@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinAnimation : MonoBehaviour
+public class SimpleRotationAnimation : MonoBehaviour
 {
-    float rotationSpeed;
+    [SerializeField] float rotationSpeed;
+    [SerializeField] bool overrideRotaion;
 
     private void Start()
     {
+        float aux = rotationSpeed;
         rotationSpeed = 2.5f;
+        if (overrideRotaion)
+        {
+            rotationSpeed = aux;
+        }
     }
 
     private void FixedUpdate()

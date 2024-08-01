@@ -25,7 +25,7 @@ public class AllyAI : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         allyAgent = GetComponent<NavMeshAgent>();
         sphereCollider = transform.GetChild(0).GetComponent<CapsuleCollider>();
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(1).GetComponent<Animator>();
         collectedVFX = GetComponent<ParticleSystem>();
     }
 
