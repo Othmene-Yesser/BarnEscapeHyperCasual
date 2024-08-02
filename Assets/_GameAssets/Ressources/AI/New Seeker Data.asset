@@ -16,7 +16,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 392
   walkSpeed: 1.5
-  runSpeed: 4
+  runSpeed: 3.5
   sprintSpeed: 7.5
   rotationSpeed: 3.5
   angularSpeed: 120

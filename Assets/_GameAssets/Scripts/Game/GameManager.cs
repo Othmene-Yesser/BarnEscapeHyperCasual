@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     FloatingJoystick mobileInput;
     InputManager inputManager;
     PlayerBuffManager buffsManager;
+    ScoreManager scoreManager;
 
     Slider slider;
     [HideInInspector] public BoxCollider winZone;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
         inputManager = FindObjectOfType<InputManager>();
         buffsManager = FindObjectOfType<PlayerBuffManager>();
         pauseMenu = transform.GetChild(0).gameObject;
+        scoreManager = gamePanel.GetComponent<ScoreManager>();
     }
 
     private void Start()
@@ -116,6 +119,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Lost By Allies deaths");
             StopCoroutine(gameTimeTicker);
+            scoreManager.lostByAllies = true;
             Lose();
         }
     }
@@ -125,8 +129,9 @@ public class GameManager : MonoBehaviour
         mobileInput.gameObject.SetActive(false);
         StopAllSeeker();
         winZone.enabled = false;
+        //! Play animation winning
         gamePanel.SetActive(true);
-        gamePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Winner";
+        scoreManager.DisplayScore();
     }
     public void Lose()
     {
@@ -134,8 +139,10 @@ public class GameManager : MonoBehaviour
         mobileInput.gameObject.SetActive(false);
         StopAllSeeker();
         winZone.enabled = false;
+
+        //! Play animation losing
         gamePanel.SetActive(true);
-        gamePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Loser";
+        scoreManager.DisplayScore();
     }
 
     public void PauseGame()

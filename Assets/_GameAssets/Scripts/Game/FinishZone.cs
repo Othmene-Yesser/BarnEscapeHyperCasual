@@ -16,6 +16,7 @@ public class FinishZone : MonoBehaviour
         if (other.CompareTag(Strings.PlayerTag))
         {
             StopCoroutine(gameManager.gameTimeTicker);
+            Debug.Log("Win");
             gameManager.Win();
         }
     }
