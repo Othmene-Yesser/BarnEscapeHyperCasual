@@ -10,6 +10,7 @@ TagManager:
   - TimerStop
   - SpeedBuff
   - Invisibility
+  - Tutorial
   layers:
   - Default
   - TransparentFX

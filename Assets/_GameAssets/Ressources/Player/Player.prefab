@@ -646,6 +646,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f683cae93267aa042a0e7035f5be421c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedBuffMaxTime: 5
+  timeStopMaxTime: 5
+  invisiblityBuffMaxTime: 5
   SpeedBuff: 0
   StopTimerBuff: 0
   Invisible: 0

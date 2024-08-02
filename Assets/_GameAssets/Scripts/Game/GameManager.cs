@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     PlayerBuffManager buffsManager;
 
     Slider slider;
-    BoxCollider winZone;
+    [HideInInspector] public BoxCollider winZone;
     GameObject pauseMenu;
 
     [HideInInspector] public float gameTime;

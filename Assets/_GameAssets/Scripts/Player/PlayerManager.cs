@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     InputManager inputManager;
     LocomotionManager locomotionManager;
     [HideInInspector] public AnimatorManager animatorManager;
+
     GameManager gameManager;
 
     public bool isAlive;
@@ -50,6 +51,14 @@ public class PlayerManager : MonoBehaviour
             //! collect Coin
             gameManager.Coins++;
             Destroy(other.gameObject);
+        }
+        if (other.CompareTag("Tutorial"))
+        {
+            //! Update Tutorial UI
+            Tutorial tuto = FindObjectOfType<Tutorial>();
+            TriggerTutorial triggerTuto = other.GetComponent<TriggerTutorial>();
+            triggerTuto.DestroParent();
+            tuto.UpdateUI();
         }
     }
 }
