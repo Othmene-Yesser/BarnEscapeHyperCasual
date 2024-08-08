@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   levelTime: 9999
+  winZone: {fileID: 0}
   gameTime: 0
 --- !u!1 &6349749430565107685
 GameObject:
