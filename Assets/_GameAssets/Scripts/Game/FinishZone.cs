@@ -16,6 +16,14 @@ public class FinishZone : MonoBehaviour
         if (other.CompareTag(Strings.PlayerTag))
         {
             StopCoroutine(gameManager.gameTimeTicker);
+
+            //! Store Coins & Add reached levels
+            var coins = PlayerPrefs.GetInt(Strings.CoinTag);
+            CoinManagerFunctions.StoreCoins(coins + gameManager.Coins);
+
+            var levelReached = PlayerPrefs.GetInt(Strings.LevelReached);
+            PlayerPrefs.SetInt(Strings.LevelReached, levelReached + 1);
+
             Debug.Log("Win");
             gameManager.Win();
         }

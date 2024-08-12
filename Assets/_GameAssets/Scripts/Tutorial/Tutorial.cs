@@ -23,7 +23,6 @@ public class Tutorial : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("Test");
         if (i == 0)
         {
             //! Display Buffs

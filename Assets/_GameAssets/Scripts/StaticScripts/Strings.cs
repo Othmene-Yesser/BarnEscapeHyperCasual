@@ -13,4 +13,13 @@ public static class Strings
     public static string SpeedBuff = "SpeedBuff";
     public static string Invisibility = "Invisibility";
     public static string Score = "Score";
+    public static string LevelReached = "LevelReached";
+}
+
+public static class CoinManagerFunctions
+{
+    public static void StoreCoins(int coins)
+    {
+        PlayerPrefs.SetInt(Strings.CoinTag, coins);
+    }
 }

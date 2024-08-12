@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -56,6 +55,7 @@ public class GameManager : MonoBehaviour
         buffsManager = FindObjectOfType<PlayerBuffManager>();
         pauseMenu = transform.GetChild(0).gameObject;
         scoreManager = gamePanel.GetComponent<ScoreManager>();
+        Time.timeScale = 1.0f;
     }
 
     private void Start()
