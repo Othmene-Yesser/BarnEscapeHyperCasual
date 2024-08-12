@@ -31,5 +31,6 @@ public class LevelsManager : MonoBehaviour
     public void ClearAllKeysPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt(Strings.CoinTag, 74);
     }
 }

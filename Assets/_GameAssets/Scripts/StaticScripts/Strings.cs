@@ -14,6 +14,7 @@ public static class Strings
     public static string Invisibility = "Invisibility";
     public static string Score = "Score";
     public static string LevelReached = "LevelReached";
+    public static string SelectedSkin = "Selectedskin";
 }
 
 public static class CoinManagerFunctions
