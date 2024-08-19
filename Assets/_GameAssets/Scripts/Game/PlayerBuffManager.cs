@@ -15,6 +15,13 @@ public class PlayerBuffManager : MonoBehaviour
     float stopTimer;
     float invisibleTimer;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     private void Start()
     {
         SpeedBuff = false;
@@ -61,6 +68,7 @@ public class PlayerBuffManager : MonoBehaviour
         if (other.CompareTag(Strings.SpeedBuff))
         {
             Debug.Log(other.name);
+            audioManager.PlaySoundEffect(audioManager.collectSpeedBuff);
             Destroy(other.gameObject); //! Insert SFX and VFX
             if (SpeedBuff)
             {
@@ -76,6 +84,7 @@ public class PlayerBuffManager : MonoBehaviour
         else if (other.CompareTag(Strings.ZaWarudoBuff))
         {
             Debug.Log(other.name);
+            audioManager.PlaySoundEffect(audioManager.collectStopTimeBuff);
             Destroy(other.gameObject); //! Insert SFX and VFX
             if (StopTimerBuff)
             {
@@ -91,6 +100,7 @@ public class PlayerBuffManager : MonoBehaviour
         else if (other.CompareTag(Strings.Invisibility))
         {
             Debug.Log(other.name);
+            audioManager.PlaySoundEffect(audioManager.collectInvisibilityBuff);
             Destroy(other.gameObject); //! Insert SFX and VFX
             if (Invisible)
             {

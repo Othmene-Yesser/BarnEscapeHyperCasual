@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 7874706879135012314}
   - component: {fileID: 74994275150223941}
   - component: {fileID: 8341885691727694705}
+  - component: {fileID: 3857692429517648702}
   m_Layer: 5
   m_Name: Stars2
   m_TagString: Untagged
@@ -460,6 +461,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &3857692429517648702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169277053818302960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6bc9ecd10faf449a877f68153654cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1286906583363144816
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6171621864281543489}
   - component: {fileID: 8700215093087261622}
+  - component: {fileID: 7486621594083001042}
   m_Layer: 5
   m_Name: SoundToggle
   m_TagString: Untagged
@@ -728,8 +742,45 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8598845196298060387, guid: aca4aeccc4d5a3044ab5f4ea9ea6cf26, type: 3}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: MenuClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7486621594083001042}
+        m_TargetAssemblyTypeName: VolumeToggle, Assembly-CSharp
+        m_MethodName: UpdateVolumeVariable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &7486621594083001042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407918736620424982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3ab71e8b36b264ea629ef5535cb8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 40b47f21b69548b48a1003e70287564d, type: 2}
 --- !u!1 &2555624428950328530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1278,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8598845196298060387, guid: aca4aeccc4d5a3044ab5f4ea9ea6cf26, type: 3}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: MenuClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &3025961067280280232
 GameObject:
@@ -1544,6 +1607,7 @@ GameObject:
   - component: {fileID: 2262286237344931206}
   - component: {fileID: 3771961864704186401}
   - component: {fileID: 8780241879076393704}
+  - component: {fileID: 5058641536303697396}
   m_Layer: 5
   m_Name: Stars3
   m_TagString: Untagged
@@ -1605,6 +1669,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &5058641536303697396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961175736296328880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6bc9ecd10faf449a877f68153654cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4198063541806641992
 GameObject:
   m_ObjectHideFlags: 0
@@ -5013,7 +5089,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8357045971776755520}
         m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_MethodName: PauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5069,6 +5145,7 @@ GameObject:
   - component: {fileID: 3925373440196736851}
   - component: {fileID: 6104037284508157098}
   - component: {fileID: 3245282594951586510}
+  - component: {fileID: 2747854863581345370}
   m_Layer: 5
   m_Name: Stars1
   m_TagString: Untagged
@@ -5130,6 +5207,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &2747854863581345370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300638330237031800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6bc9ecd10faf449a877f68153654cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8357045971776755520
 GameObject:
   m_ObjectHideFlags: 0

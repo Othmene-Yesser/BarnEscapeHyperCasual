@@ -12,7 +12,7 @@ public class AllyAI : MonoBehaviour
     Transform player;
     CapsuleCollider sphereCollider;
     ParticleSystem collectedVFX;
-
+    AudioManager audioManager;
     
     [SerializeField] float stoppingDistance = 3f;
     [SerializeField] float speed = 5.5f;
@@ -27,6 +27,7 @@ public class AllyAI : MonoBehaviour
         sphereCollider = transform.GetChild(0).GetComponent<CapsuleCollider>();
         animator = transform.GetChild(1).GetComponent<Animator>();
         collectedVFX = GetComponent<ParticleSystem>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Start()
@@ -79,6 +80,7 @@ public class AllyAI : MonoBehaviour
         if (other.CompareTag(Strings.PlayerTag) && hasBeenCaptured == false)
         {
             //TODO play an effect that says it has been saved
+            audioManager.PlaySoundEffect(audioManager.collectAlly);
             Debug.Log("Captured " + this.name);
             collectedVFX.Play();
             player = other.transform;

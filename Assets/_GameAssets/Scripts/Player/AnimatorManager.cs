@@ -7,7 +7,7 @@ public class AnimatorManager : MonoBehaviour
     InputManager inputManager;
     Animator animator;
 
-    private void Awake()
+    private void Start()
     {
         inputManager = GetComponent<InputManager>();
         animator = transform.GetChild(0).GetComponent<Animator>();

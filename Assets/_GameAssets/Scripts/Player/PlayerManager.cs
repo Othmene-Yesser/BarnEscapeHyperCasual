@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public AnimatorManager animatorManager;
 
     GameManager gameManager;
+    AudioManager audioManager;
 
     public bool isAlive;
 
@@ -19,6 +20,7 @@ public class PlayerManager : MonoBehaviour
         locomotionManager = GetComponent<LocomotionManager>();
         animatorManager = GetComponent<AnimatorManager>();
         gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     private void Start()
     {
@@ -48,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         if (other.CompareTag(Strings.CoinTag))
         {
             //TODO Add SFX for coin
+            audioManager.PlaySoundEffect(audioManager.collectCoin);
             //! collect Coin
             gameManager.Coins++;
             Destroy(other.gameObject);
