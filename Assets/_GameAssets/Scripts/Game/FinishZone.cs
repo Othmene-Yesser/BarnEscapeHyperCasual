@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishZone : MonoBehaviour
 {
@@ -21,8 +22,7 @@ public class FinishZone : MonoBehaviour
             var coins = PlayerPrefs.GetInt(Strings.CoinTag);
             CoinManagerFunctions.StoreCoins(coins + gameManager.Coins);
 
-            var levelReached = PlayerPrefs.GetInt(Strings.LevelReached);
-            PlayerPrefs.SetInt(Strings.LevelReached, levelReached + 1);
+            PlayerPrefs.SetInt(Strings.LevelReached, SceneManager.GetActiveScene().buildIndex);
 
             Debug.Log("Win");
             gameManager.Win();

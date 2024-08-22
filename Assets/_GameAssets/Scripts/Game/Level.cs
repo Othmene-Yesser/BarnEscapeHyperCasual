@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
+    [SerializeField] GameObject padLock;
+
     public bool locked;
     public int levelNumber;
 
@@ -18,6 +20,12 @@ public class Level : MonoBehaviour
             PlayerPrefs.SetInt("StartedGame", 1);
         }
         locked = !(PlayerPrefs.GetInt(Strings.LevelReached) >= levelNumber);
+        if (locked)
+        {
+            //! Display the Lock
+            GameObject lockOverlay = Instantiate(padLock, transform);
+            lockOverlay.transform.position = transform.position;
+        }
     }
 
     public void PlayLevel()
