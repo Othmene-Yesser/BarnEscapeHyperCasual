@@ -40,7 +40,7 @@ public class SkinSelectMenu : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(Strings.SelectedSkin))
         {
-            selectedSkin.color = skins[PlayerPrefs.GetInt(Strings.SelectedSkin)].skinImage.color;
+            selectedSkin.texture = skins[PlayerPrefs.GetInt(Strings.SelectedSkin)].skinImage.texture;
         }
     }
 

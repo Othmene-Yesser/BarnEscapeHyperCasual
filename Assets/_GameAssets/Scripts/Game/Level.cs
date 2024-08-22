@@ -8,13 +8,9 @@ public class Level : MonoBehaviour
     public bool locked;
     public int levelNumber;
 
-    LevelsManager levelManager;
-
-
-    private void Start()
+    public void AssignValuesForLevel(int lvlNbr)
     {
-        levelManager = FindObjectOfType<LevelsManager>();
-        levelNumber = levelManager.GetLevelNumber(this);
+        levelNumber = lvlNbr;
 
         if (!PlayerPrefs.HasKey("StartedGame"))
         {

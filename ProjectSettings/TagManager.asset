@@ -11,6 +11,9 @@ TagManager:
   - SpeedBuff
   - Invisibility
   - Tutorial
+  - LevelNumberDisplay
+  - LevelMenuButton
+  - Levels
   layers:
   - Default
   - TransparentFX

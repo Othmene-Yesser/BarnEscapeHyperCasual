@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
-public class LevelsManager : MonoBehaviour
+public class Category : MonoBehaviour
 {
-    public Level[] levels;
+    Level[] levels;
+    CategoryManager categoryManager;
+
+    public int categoryIndentaion;
 
     private void Awake()
     {
@@ -13,19 +17,18 @@ public class LevelsManager : MonoBehaviour
         {
             levels[i] = transform.GetChild(i).GetComponent<Level>();
         }
+
+        categoryManager = transform.parent.GetComponent<CategoryManager>();
     }
 
-    public int GetLevelNumber(Level level)
+    private void Start()
     {
+        categoryIndentaion = categoryManager.CategoryNumber(this);
+
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (levels[i] == level)
-            {
-                return i;
-            }
+            levels[i].AssignValuesForLevel(i + (categoryIndentaion * 12));
         }
-        return -1;
-        
     }
 
     public void ClearAllKeysPlayerPrefs()

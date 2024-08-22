@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Skin : MonoBehaviour
 {
+    [SerializeField] GameObject padLock;
+
     SkinSelectMenu menu;
 
     public RawImage skinImage;
@@ -26,7 +28,9 @@ public class Skin : MonoBehaviour
         normalColor = skinImage.color;
         if (locked)
         {
-            skinImage.color = Color.gray;
+            //! Get the lock an then display it with little transperacy 
+            GameObject pad = Instantiate(padLock, transform);
+            pad.transform.position = transform.position;
         }
     }
 
@@ -43,7 +47,7 @@ public class Skin : MonoBehaviour
             //! Update coins
             CoinManager coinManager = FindObjectOfType<CoinManager>();
             coinManager.UpdateCoinValue();
-            skinImage.color = normalColor;
+            Destroy(transform.GetChild(0).gameObject);
             return true;
         }
         else
@@ -64,6 +68,6 @@ public class Skin : MonoBehaviour
         }
         //! then select if the skin is unlocked
         PlayerPrefs.SetInt(Strings.SelectedSkin,menu.GetSkinNumber(this));
-        menu.selectedSkin.color = skinImage.color;
+        menu.selectedSkin.texture = skinImage.texture;
     }
 }
