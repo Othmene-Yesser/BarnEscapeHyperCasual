@@ -10,5 +10,6 @@ public class SkinSelector : MonoBehaviour
     {
         int index = PlayerPrefs.GetInt(Strings.SelectedSkin);
         Instantiate(Skins[index],transform);
+        Skins = null;
     }
 }

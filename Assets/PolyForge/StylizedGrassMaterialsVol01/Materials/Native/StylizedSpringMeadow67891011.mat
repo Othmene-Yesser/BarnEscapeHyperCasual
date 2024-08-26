@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StylizedSpringMeadow
+  m_Name: StylizedSpringMeadow67891011
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,7 +41,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: a5db8e3dc0c788d42856d22f8bca3972, type: 3}
-        m_Scale: {x: 4, y: 5}
+        m_Scale: {x: 3.01, y: 7.1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 922afacc55086df4c9f89d579be4f2a0, type: 3}
@@ -73,7 +73,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: a5db8e3dc0c788d42856d22f8bca3972, type: 3}
-        m_Scale: {x: 4, y: 5}
+        m_Scale: {x: 3.01, y: 7.1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
