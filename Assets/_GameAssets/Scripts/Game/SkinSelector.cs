@@ -8,7 +8,7 @@ public class SkinSelector : MonoBehaviour
 
     private void Awake()
     {
-        int index = PlayerPrefs.GetInt(Strings.SelectedSkin);
+        int index = PlayerPrefs.GetInt(StringsAndConsts.SelectedSkin);
         Instantiate(Skins[index],transform);
         Skins = null;
     }

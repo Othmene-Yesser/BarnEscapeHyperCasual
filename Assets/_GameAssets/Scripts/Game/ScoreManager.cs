@@ -17,24 +17,25 @@ public class ScoreManager : MonoBehaviour
         playerManager = FindObjectOfType<PlayerManager>();
         animator = GetComponent<Animator>();
     }
-    public void DisplayScore()
+    public int DisplayScore()
     {
         int score = CheckScore();
         
         if (lostByAllies)
         {
-            animator.SetInteger(Strings.Score, 0);
+            animator.SetInteger(StringsAndConsts.Score, 0);
             animator.SetBool("Win", false);
         }
         else
         {
             animator.SetBool("Win", score > 0);
-            animator.SetInteger(Strings.Score, score);
+            animator.SetInteger(StringsAndConsts.Score, score);
         }
-        if (animator.GetInteger(Strings.Score) == 0)
+        if (animator.GetInteger(StringsAndConsts.Score) == 0)
         {
-            animator.SetInteger(Strings.Score, -1);
+            animator.SetInteger(StringsAndConsts.Score, -1);
         }
+        return score;
     }
 
     private int CheckScore()
@@ -65,9 +66,7 @@ public class ScoreManager : MonoBehaviour
             {
                 stars--;
             }
-        }
-        string _time = (Mathf.Abs(gameManager.gameTime)).ToString();
-        string timerForGame = "Time remaining : " + _time[0] + _time[1] + _time[2] + _time[3] + "s";
+        } 
 
         if (!playerManager.isAlive)
             return 0;

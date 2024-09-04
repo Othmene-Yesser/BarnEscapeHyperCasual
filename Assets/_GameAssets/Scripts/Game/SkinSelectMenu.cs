@@ -32,15 +32,15 @@ public class SkinSelectMenu : MonoBehaviour
                 skinName = "Skin" + i.ToString();
                 PlayerPrefs.SetInt(skinName,0);
             }
-            PlayerPrefs.SetInt(Strings.SelectedSkin, 0);
+            PlayerPrefs.SetInt(StringsAndConsts.SelectedSkin, 0);
             PlayerPrefs.SetInt("StartedGameSkins", 1);
         }
     }
     private void Start()
     {
-        if (PlayerPrefs.HasKey(Strings.SelectedSkin))
+        if (PlayerPrefs.HasKey(StringsAndConsts.SelectedSkin))
         {
-            selectedSkin.texture = skins[PlayerPrefs.GetInt(Strings.SelectedSkin)].skinImage.texture;
+            selectedSkin.texture = skins[PlayerPrefs.GetInt(StringsAndConsts.SelectedSkin)].skinImage.texture;
         }
     }
 

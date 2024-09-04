@@ -20,7 +20,7 @@ public class AnimatorManager : MonoBehaviour
     private void HandleMovementAnimation()
     {
         float magnitude = inputManager.XZInput.normalized.magnitude;
-        animator.SetFloat(Strings.BlendTree1D, magnitude);
+        animator.SetFloat(StringsAndConsts.BlendTree1D, magnitude);
     }
     public void PlayTargetAnimation(string animation = "")
     {

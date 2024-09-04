@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class Category : MonoBehaviour
 {
@@ -34,6 +33,6 @@ public class Category : MonoBehaviour
     public void ClearAllKeysPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetInt(Strings.CoinTag, 74);
+        PlayerPrefs.SetInt(StringsAndConsts.CoinTag, 74);
     }
 }

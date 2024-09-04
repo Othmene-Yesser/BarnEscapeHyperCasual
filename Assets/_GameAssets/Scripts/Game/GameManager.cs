@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     InputManager inputManager;
     PlayerBuffManager buffsManager;
     ScoreManager scoreManager;
+    FinishZone finishZone;
 
     Slider slider;
     [HideInInspector] public BoxCollider winZone;
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         buffsManager = FindObjectOfType<PlayerBuffManager>();
         pauseMenu = transform.GetChild(0).gameObject;
         scoreManager = gamePanel.GetComponent<ScoreManager>();
+        finishZone = FindObjectOfType<FinishZone>();
         Time.timeScale = 1.0f;
     }
 
@@ -131,7 +133,9 @@ public class GameManager : MonoBehaviour
         winZone.enabled = false;
         //! Play animation winning
         gamePanel.SetActive(true);
-        scoreManager.DisplayScore();
+         int score = scoreManager.DisplayScore();
+        //! Finish Zone store stars
+        finishZone.StoreStars(score);
     }
     public void Lose()
     {

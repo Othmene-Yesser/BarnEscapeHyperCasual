@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Strings.CoinTag))
+        if (other.CompareTag(StringsAndConsts.CoinTag))
         {
             //TODO Add SFX for coin
             audioManager.PlaySoundEffect(audioManager.collectCoin);

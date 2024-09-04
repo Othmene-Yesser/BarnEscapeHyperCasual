@@ -19,23 +19,23 @@ public class SeekerAI : MonoBehaviour
                 switch (value)
                 {
                     case States.Idle:
-                        animator.SetFloat(Strings.BlendTree1D, 0);
+                        animator.SetFloat(StringsAndConsts.BlendTree1D, 0);
                         break;
                     case States.Patrol:
                         enemyAgent.speed = enemyData.walkSpeed;
-                        animator.SetFloat(Strings.BlendTree1D, 1);
+                        animator.SetFloat(StringsAndConsts.BlendTree1D, 1);
                         break;
                     case States.Chase:
                         enemyAgent.speed = enemyData.runSpeed;
-                        animator.SetFloat(Strings.BlendTree1D, 2);
+                        animator.SetFloat(StringsAndConsts.BlendTree1D, 2);
                         break;
                     case States.Searching:
                         enemyAgent.speed = enemyData.runSpeed;
-                        animator.SetFloat(Strings.BlendTree1D, 2);
+                        animator.SetFloat(StringsAndConsts.BlendTree1D, 2);
                         break;
                     case States.Sprint:
                         enemyAgent.speed = enemyData.sprintSpeed;
-                        animator.SetFloat(Strings.BlendTree1D, 2);
+                        animator.SetFloat(StringsAndConsts.BlendTree1D, 2);
                         break;
                 }
                 state = value;
@@ -87,7 +87,7 @@ public class SeekerAI : MonoBehaviour
 
     private void Start()
     {
-        animator.SetFloat(Strings.BlendTree1D, 1);
+        animator.SetFloat(StringsAndConsts.BlendTree1D, 1);
         State = States.Patrol;
 
         rayStatus = new bool[17];
@@ -115,7 +115,7 @@ public class SeekerAI : MonoBehaviour
     {
         StopAllCoroutines();
         enemyAgent.SetDestination(transform.position);
-        animator.SetFloat(Strings.BlendTree1D, 0);
+        animator.SetFloat(StringsAndConsts.BlendTree1D, 0);
     }
 
     float DistanceFromLastRegisteredPosition(bool patrol = false)
@@ -278,7 +278,7 @@ public class SeekerAI : MonoBehaviour
     private bool CheckIfViableForDetection(int i)
     {
         Collider other = hits[i].collider;
-        if (rayStatus[i] && (other.CompareTag(Strings.PlayerTag) || other.CompareTag(Strings.AllyTag)))
+        if (rayStatus[i] && (other.CompareTag(StringsAndConsts.PlayerTag) || other.CompareTag(StringsAndConsts.AllyTag)))
         {
             if (playerbuffs.Invisible)
             {
@@ -356,12 +356,12 @@ public class SeekerAI : MonoBehaviour
             enemyAgent.SetDestination(lastSeenPosition);
             if (Vector3.Distance(transform.position, enemyAgent.destination) <= enemyAgent.stoppingDistance - 0.4f)
             {
-                animator.SetFloat(Strings.BlendTree1D, 0);
+                animator.SetFloat(StringsAndConsts.BlendTree1D, 0);
                 //! Check if we go close to the player the we kill him
                 Collider[] collidersNear = Physics.OverlapSphere(transform.position, enemyAgent.stoppingDistance);
                 foreach (Collider collider in collidersNear)
                 {
-                    if (collider.CompareTag(Strings.PlayerTag) && playerManager.isAlive)
+                    if (collider.CompareTag(StringsAndConsts.PlayerTag) && playerManager.isAlive)
                     {
                         KillPlayer();
                     }
@@ -369,7 +369,7 @@ public class SeekerAI : MonoBehaviour
             }
             else
             {
-                animator.SetFloat(Strings.BlendTree1D, 2);
+                animator.SetFloat(StringsAndConsts.BlendTree1D, 2);
             }
 
             //! Do Action

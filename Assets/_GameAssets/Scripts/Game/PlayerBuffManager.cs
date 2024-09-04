@@ -66,7 +66,7 @@ public class PlayerBuffManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Strings.SpeedBuff))
+        if (other.CompareTag(StringsAndConsts.SpeedBuff))
         {
             Debug.Log(other.name);
             HapticFeedback.LightFeedback();
@@ -83,7 +83,7 @@ public class PlayerBuffManager : MonoBehaviour
                 speedTimer = 0f;
             }
         }
-        else if (other.CompareTag(Strings.ZaWarudoBuff))
+        else if (other.CompareTag(StringsAndConsts.ZaWarudoBuff))
         {
             Debug.Log(other.name);
             HapticFeedback.LightFeedback();
@@ -100,7 +100,7 @@ public class PlayerBuffManager : MonoBehaviour
                 stopTimer = 0f;
             }
         }
-        else if (other.CompareTag(Strings.Invisibility))
+        else if (other.CompareTag(StringsAndConsts.Invisibility))
         {
             Debug.Log(other.name);
             HapticFeedback.LightFeedback();

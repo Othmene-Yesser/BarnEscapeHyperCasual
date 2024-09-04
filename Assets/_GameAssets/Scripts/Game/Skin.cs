@@ -36,11 +36,11 @@ public class Skin : MonoBehaviour
 
     private bool UnlockSkin()
     {
-        var coins = PlayerPrefs.GetInt(Strings.CoinTag);
+        var coins = PlayerPrefs.GetInt(StringsAndConsts.CoinTag);
         var cost = 5 * menu.GetSkinNumber(this);
         if (coins >= cost)
         {
-            PlayerPrefs.SetInt(Strings.CoinTag, coins - cost);
+            PlayerPrefs.SetInt(StringsAndConsts.CoinTag, coins - cost);
             //! remove the lock
             PlayerPrefs.SetInt(skinName, 1);
             locked = PlayerPrefs.GetInt(skinName) == 0;
@@ -67,7 +67,7 @@ public class Skin : MonoBehaviour
             }
         }
         //! then select if the skin is unlocked
-        PlayerPrefs.SetInt(Strings.SelectedSkin,menu.GetSkinNumber(this));
+        PlayerPrefs.SetInt(StringsAndConsts.SelectedSkin,menu.GetSkinNumber(this));
         menu.selectedSkin.texture = skinImage.texture;
     }
 }

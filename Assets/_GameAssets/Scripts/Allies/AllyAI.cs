@@ -46,12 +46,12 @@ public class AllyAI : MonoBehaviour
             distance = Vector3.Distance(transform.position, player.position);
             if (distance > stoppingDistance)
             {
-                animator.SetFloat(Strings.BlendTree1D, 1);
+                animator.SetFloat(StringsAndConsts.BlendTree1D, 1);
             }
             else
             {
                 float clamped = Mathf.Clamp01(distance - 2f);
-                animator.SetFloat(Strings.BlendTree1D, clamped);
+                animator.SetFloat(StringsAndConsts.BlendTree1D, clamped);
             }
         }
     }
@@ -63,7 +63,7 @@ public class AllyAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Strings.SeekerTag) && hasBeenCaptured == true && alive)
+        if (other.CompareTag(StringsAndConsts.SeekerTag) && hasBeenCaptured == true && alive)
         {
             //! Player death animation
             animator.Play("Death");
@@ -77,7 +77,7 @@ public class AllyAI : MonoBehaviour
             gameManager.CheckIfLostManyAllies();
         }
 
-        if (other.CompareTag(Strings.PlayerTag) && hasBeenCaptured == false)
+        if (other.CompareTag(StringsAndConsts.PlayerTag) && hasBeenCaptured == false)
         {
             //TODO play an effect that says it has been saved
             audioManager.PlaySoundEffect(audioManager.collectAlly);

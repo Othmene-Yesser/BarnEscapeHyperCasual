@@ -16,13 +16,13 @@ public class CoinManager : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey(Strings.CoinTag))
+        if (PlayerPrefs.HasKey(StringsAndConsts.CoinTag))
         {
-            coins = PlayerPrefs.GetInt(Strings.CoinTag);
+            coins = PlayerPrefs.GetInt(StringsAndConsts.CoinTag);
         }
         else
         {
-            PlayerPrefs.SetInt(Strings.CoinTag, 0);
+            PlayerPrefs.SetInt(StringsAndConsts.CoinTag, 0);
             coins = 0;
         }
         coinText.text = coins.ToString();
@@ -30,7 +30,7 @@ public class CoinManager : MonoBehaviour
 
     public void UpdateCoinValue()
     {
-        coins = PlayerPrefs.GetInt(Strings.CoinTag);
+        coins = PlayerPrefs.GetInt(StringsAndConsts.CoinTag);
         coinText.text = coins.ToString();
     }
 

@@ -54,7 +54,7 @@ MonoBehaviour:
   collectAlly: {fileID: 8300000, guid: abf5b0bfde402074c9712ad931559eda, type: 3}
   collectSpeedBuff: {fileID: 8300000, guid: 5b89e496b747c4e47a70a9d1c5004c5b, type: 3}
   collectInvisibilityBuff: {fileID: 8300000, guid: 5b89e496b747c4e47a70a9d1c5004c5b, type: 3}
-  collectStopTimeBuff: {fileID: 8300000, guid: 953ac51523605fa49bf426b0dfc5d66b, type: 3}
+  collectStopTimeBuff: {fileID: 8300000, guid: 5b89e496b747c4e47a70a9d1c5004c5b, type: 3}
   star: {fileID: 8300000, guid: a558730f25f03e64db7e857ab6323f1f, type: 3}
   lose: {fileID: 0}
   win: {fileID: 0}
