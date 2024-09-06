@@ -26,7 +26,10 @@ public class Tutorial : MonoBehaviour
         if (i == 0)
         {
             //! Display Buffs
-            tutoText.text = "There are seekers which their objective is to capture you navigate around them using Buffs";
+            tutoText.text = "There are seekers which their objective is to capture you navigate around them using Buffs \n" +
+                "Clock  stops time for 5s\n" +
+                "Boots give you speed for 5s \n" +
+                "Ghost makes you invisible to seekers";
         }
         else if (i == 1)
         {

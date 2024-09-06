@@ -89,7 +89,7 @@ MonoBehaviour:
     m_Value: -112
   saturation:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 25
 --- !u!114 &-2102162685369027292
 MonoBehaviour:
   m_ObjectHideFlags: 3

@@ -33,6 +33,6 @@ public class Category : MonoBehaviour
     public void ClearAllKeysPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetInt(StringsAndConsts.CoinTag, 74);
+        PlayerPrefs.SetInt(StringsAndConsts.CoinTag, 999999);
     }
 }

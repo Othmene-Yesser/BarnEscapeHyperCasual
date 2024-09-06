@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     ScoreManager scoreManager;
     FinishZone finishZone;
 
-    Slider slider;
+    Image slider;
     [HideInInspector] public BoxCollider winZone;
     GameObject pauseMenu;
 
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         door = FindObjectOfType<Door>();
-        slider = FindObjectOfType<Slider>();
+        slider = GameObject.FindWithTag("Clock").GetComponent<Image>();
         winZone = FindObjectOfType<FinishZone>().GetComponent<BoxCollider>();
         mobileInput = FindObjectOfType<FloatingJoystick>();
         inputManager = FindObjectOfType<InputManager>();
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
                 continue;
             }
             gameTime -= Time.deltaTime;
-            slider.value = gameTime / levelTime;
+            slider.fillAmount = gameTime / levelTime;
             yield return null;
         }
         Debug.Log("Lost");

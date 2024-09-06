@@ -61,7 +61,7 @@ public class PlayerManager : MonoBehaviour
             Tutorial tuto = FindObjectOfType<Tutorial>();
             TriggerTutorial triggerTuto = other.GetComponent<TriggerTutorial>();
             triggerTuto.DestroParent();
-            tuto.UpdateUI();
+            //tuto.UpdateUI();
         }
     }
 }

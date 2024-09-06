@@ -7,6 +7,6 @@ public class TriggerTutorial : MonoBehaviour
     public void DestroParent()
     {
         ParentTrigger parent = this.transform.parent.GetComponent<ParentTrigger>();
-        parent.DestroyGameObject();
+        parent.PlayNext();
     }
 }
